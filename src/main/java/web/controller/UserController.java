@@ -5,10 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserServices;
 
@@ -33,9 +31,10 @@ public class UserController {
         return "users/allusers";
     }
 
+    //рабочий метод
     @GetMapping("/addUser")
     public String addNewUser(Model model, User newUser) {
-        model.addAttribute("newUser", newUser);
+        model.addAttribute("user", newUser);
         return "users/adduser";
     }
 
@@ -45,16 +44,25 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String updateEmployee(@PathVariable("id") int id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String updateUser(@ModelAttribute("id") int id, Model model) {
         User user = userServices.getUser(id);
-        model.addAttribute("user", user);
-        return "users/adduser";
+        System.out.println("update from controller " + user);
+        model.addAttribute("userUpdate", user);
+        return "users/updateuser";
     }
 
-    @RequestMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable("id") int id) {
+    @PostMapping("/update")
+    public String updateNewUser(@ModelAttribute("userUpdate") User updateUser) {
+        userServices.updateUser(updateUser);
+        return "redirect:/users";
+    }
+
+    //рабочий  метод но с RequestMapping
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@ModelAttribute("id") int id) {
         userServices.deleteUser(id);
         return "redirect:/users";
     }
+
 }

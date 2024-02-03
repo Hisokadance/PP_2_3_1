@@ -16,9 +16,11 @@
         <th colspan="2">optional</th>
     </tr>
     <tr th:each="u : ${user}">
+
         <td th:text="${u.getId()}">текущее id</td>
         <td th:text="${u.getName()}">текущее имя</td>
         <td th:text="${u.getSurname()}">текущая фамилия</td>
+
         <td><a th:href="@{'/users/edit/' + ${u.getId()}}">UPDATE</a></td>
         <td><a th:href="@{'/users/delete/' + ${u.getId()}}">DELETE</a></td>
     </tr>
