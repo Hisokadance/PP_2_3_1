@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+
 @Repository
 public class UserDaoImp implements UserDao {
 
@@ -24,17 +25,17 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public User showUser(int id) {
+    public User getUser(int id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    public void updateUser(int id, User updateuser) {
-        User user = entityManager.find(User.class, id);
-        user.setName(updateuser.getName());
-        user.setSurname(updateuser.getSurname());
-        user.setAge(updateuser.getAge());
-        entityManager.merge(user);
+    public void updateUser(int id, User updateUser) {
+        User user = getUser(id);
+        user.setName(updateUser.getName());
+        user.setSurname(updateUser.getSurname());
+        user.setAge(updateUser.getAge());
+        entityManager.persist(user);
     }
 
     @Override

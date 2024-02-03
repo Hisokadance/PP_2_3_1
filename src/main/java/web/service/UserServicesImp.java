@@ -8,8 +8,8 @@ import web.model.User;
 
 import java.util.List;
 
-@Transactional
 @Service
+@Transactional(readOnly = true)
 public class UserServicesImp implements UserServices {
 
     private final UserDao userDao;
@@ -24,23 +24,27 @@ public class UserServicesImp implements UserServices {
         return userDao.getAllUsers();
     }
 
+    @Transactional
     @Override
     public void addUser(User user) {
         userDao.addUser(user);
     }
 
-    @Override
-    public User showUser(int id) {
-        return userDao.showUser(id);
-    }
-
+    @Transactional
     @Override
     public void updateUser(int id, User updateuser) {
         userDao.updateUser(id, updateuser);
     }
 
+    @Transactional
     @Override
     public void deleteUser(int id) {
         userDao.deleteUser(id);
     }
+
+    @Override
+    public User getUser(int id) {
+        return userDao.getUser(id);
+    }
 }
+

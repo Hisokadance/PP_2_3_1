@@ -5,16 +5,27 @@
     <title>All Users</title>
 </head>
 <body>
-<h1>All Users</h1>
+<h1>Queue users</h1>
 <hr/>
 <br/>
 <table>
-    <div th:each="u : ${user}">
-        <a th:href="@{/users/{id}(id=${u.getId()})}"
-           th:text="${u.getName() + ', ' + u.getSurname() + ', ' + u.getAge()}">user</a>
-    </div>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SURNAME</th>
+        <th colspan="2">optional</th>
+    </tr>
+    <tr th:each="u : ${user}">
+        <td th:text="${u.getId()}">текущее id</td>
+        <td th:text="${u.getName()}">текущее имя</td>
+        <td th:text="${u.getSurname()}">текущая фамилия</td>
+        <td><a th:href="@{'/users/edit/' + ${u.getId()}}">UPDATE</a></td>
+        <td><a th:href="@{'/users/delete/' + ${u.getId()}}">DELETE</a></td>
+    </tr>
 </table>
 <hr/>
-<a href="users/new">Create new user</a>
+<button><a href="users/addUser">CREATE NEW USER</a></button>
+
 </body>
+
 </html>

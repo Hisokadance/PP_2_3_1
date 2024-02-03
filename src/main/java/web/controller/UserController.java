@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserServices;
 
@@ -24,6 +25,7 @@ public class UserController {
         this.userServices = userServices;
     }
 
+    //рабочий метод
     @GetMapping
     public String getAllUsers(Model model) {
         List<User> userList = userServices.getAllUser();
@@ -31,46 +33,28 @@ public class UserController {
         return "users/allusers";
     }
 
-    @GetMapping("/new")
-    public String addUser(@ModelAttribute("user") User user) {
+    @GetMapping("/addUser")
+    public String addNewUser(Model model, User newUser) {
+        model.addAttribute("newUser", newUser);
         return "users/adduser";
     }
 
-    @PostMapping
-    public String createUser(@ModelAttribute("user") User user) {
-        userServices.addUser(user);
+    @PostMapping()
+    public String saveNewUser(@ModelAttribute("user") User saveUser) {
+        userServices.addUser(saveUser);
         return "redirect:/users";
     }
 
-    @GetMapping("{id}")
-    public String showUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userServices.showUser(id));
-        return "users/insideuser";
+    @RequestMapping("/edit/{id}")
+    public String updateEmployee(@PathVariable("id") int id, Model model) {
+        User user = userServices.getUser(id);
+        model.addAttribute("user", user);
+        return "users/adduser";
     }
 
-//    @GetMapping("/{id}/edit")
-//    public String edit(Model model) {
-//        model.addAttribute("user", new User());
-//        return "users/updateuser";
-//    }
-//
-//    @PostMapping("/{id}")
-//    public String updateUser(@ModelAttribute("id") User user) {
-//        try {
-//            userServices.updateUser(user.getId(), user);
-//        }catch (Exception e){
-//            System.out.println("ERROR UPDATE");
-//        }
-//        return "redirect:/users";
-//    }
-
-//    @PostMapping("/delete_user")
-//    public String deleteUser(@ModelAttribute("user") User user) {
-//        try {
-//            userServices.deleteUser(user.getId());
-//        } catch (Exception e) {
-//            System.out.println("ERROR DELETE");
-//        }
-//        return "redirect:/users";
-//    }
+    @RequestMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable("id") int id) {
+        userServices.deleteUser(id);
+        return "redirect:/users";
+    }
 }
