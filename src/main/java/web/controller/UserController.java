@@ -23,7 +23,6 @@ public class UserController {
         this.userServices = userServices;
     }
 
-    //рабочий метод
     @GetMapping
     public String getAllUsers(Model model) {
         List<User> userList = userServices.getAllUser();
@@ -31,7 +30,6 @@ public class UserController {
         return "users/allusers";
     }
 
-    //рабочий метод
     @GetMapping("/addUser")
     public String addNewUser(Model model, User newUser) {
         model.addAttribute("user", newUser);
@@ -47,7 +45,6 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String updateUser(@ModelAttribute("id") int id, Model model) {
         User user = userServices.getUser(id);
-        System.out.println("update from controller " + user);
         model.addAttribute("userUpdate", user);
         return "users/updateuser";
     }
@@ -58,11 +55,9 @@ public class UserController {
         return "redirect:/users";
     }
 
-    //рабочий  метод но с RequestMapping
     @PostMapping("/delete/{id}")
     public String deleteUser(@ModelAttribute("id") int id) {
         userServices.deleteUser(id);
         return "redirect:/users";
     }
-
 }

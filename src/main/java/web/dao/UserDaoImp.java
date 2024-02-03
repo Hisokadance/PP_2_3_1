@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-
 @Repository
 public class UserDaoImp implements UserDao {
 
@@ -32,7 +31,6 @@ public class UserDaoImp implements UserDao {
     @Override
     public void updateUser(User updateUser) {
         entityManager.merge(updateUser);
-        System.out.println("update user" + updateUser);
     }
 
     @Override
