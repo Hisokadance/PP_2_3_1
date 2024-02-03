@@ -59,7 +59,7 @@ public class UserController {
     }
 
     //рабочий  метод но с RequestMapping
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteUser(@ModelAttribute("id") int id) {
         userServices.deleteUser(id);
         return "redirect:/users";

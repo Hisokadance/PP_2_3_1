@@ -21,8 +21,16 @@
         <td th:text="${u.getName()}">текущее имя</td>
         <td th:text="${u.getSurname()}">текущая фамилия</td>
 
-        <td><a th:href="@{'/users/edit/' + ${u.getId()}}">UPDATE</a></td>
-        <td><a th:href="@{'/users/delete/' + ${u.getId()}}">DELETE</a></td>
+        <td>
+            <form th:action="@{'/users/edit/' + ${u.getId()}}">
+                <button type="submit">update</button>
+            </form>
+
+        <td>
+            <form th:method="POST" th:action="@{'/users/delete/' + ${u.getId()}}">
+                <button type="submit">delete</button>
+            </form>
+        </td>
     </tr>
 </table>
 <hr/>
