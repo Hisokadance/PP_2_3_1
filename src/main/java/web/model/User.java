@@ -61,6 +61,8 @@ public class User {
         this.age = age;
     }
 
+    //todo: стоит написать переопределение equals/hashCode
+
     @Override
     public String toString() {
         return "User{" +

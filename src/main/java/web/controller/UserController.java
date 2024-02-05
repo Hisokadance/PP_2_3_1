@@ -27,7 +27,7 @@ public class UserController {
     public String getAllUsers(Model model) {
         List<User> userList = userServices.getAllUser();
         model.addAttribute("user", userList);
-        return "users/allusers";
+        return "users/allusers";//todo: codeStyle -> "users/all-users"  роутинг прописывают в таком стиле
     }
 
     @GetMapping("/addUser")

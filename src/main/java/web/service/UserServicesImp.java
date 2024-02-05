@@ -40,7 +40,7 @@ public class UserServicesImp implements UserServices {
     @Override
     public void deleteUser(int id) {
         userDao.deleteUser(id);
-    }
+    }//todo: пора переходить на ссылочные типы
 
     @Override
     public User getUser(int id) {
